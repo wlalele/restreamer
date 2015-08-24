@@ -1,4 +1,4 @@
-### Restreamer project ###
+# Restreamer project #
 ## Libraries ##
 * ffmpeg (https://www.ffmpeg.org)
 * nginx (http://nginx.org)
