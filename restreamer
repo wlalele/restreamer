@@ -1,0 +1,52 @@
+#!/bin/bash
+
+# FFMPG
+restream()
+{    
+   ffmpeg -headers 'User-Agent: bar'$'\r\n' -i $1 -c copy -c:a aac -strict -2 -f flv rtmp://127.0.0.1:1935/hls/$2
+}  
+
+usage()
+{
+    echo "Usage: $0 -i|--input file"
+    exit 1
+}
+
+help()
+{
+    echo "Restreamer:"
+    echo "   -i | --input : file that you want to restream"
+    echo "See usage for more info..."
+}
+
+if [[ $# == 0 ]]
+then
+    usage
+fi
+
+while [[ $# > 0 ]]
+do
+key="$1"
+
+case $key in
+    -i|--input)
+        INPUT="$2"
+	echo INPUT = "${INPUT}"
+        shift
+    ;;
+    -n|--name)
+        NAME="$2"
+	echo NAME = "${NAME}"
+	shift
+    ;;
+    -h|--help)
+        help
+    ;;
+    -u|--usage|*)
+        usage
+    ;;
+esac
+shift # past argument or value
+done
+
+restream ${INPUT} ${NAME}
